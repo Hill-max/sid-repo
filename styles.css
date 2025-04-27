@@ -1,30 +1,90 @@
+/* styles.css */
+:root {
+  --bg-image: url('background.jpg');
+  --bg-color: #f4f4f4;
+  --text-color: #000;
+  --border-color: rgba(255, 255, 255, 0.8);
+  --primary-color: #007BFF;
+  --bg-protected: #e0ffe0;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #fff;
+  --border-color: rgba(255, 255, 255, 0.2);
+  --primary-color: #0d6efd;
+  --bg-protected: #003300;
+}
+
 html, body {
-  margin: 0; padding: 0; height: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--bg-color);
+  background-image: var(--bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top: 10px solid var(--border-color);
+  color: var(--text-color);
   font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.theme-switcher {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+.theme-switcher button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
 }
 
 #login, #content {
-  background: #fff; padding: 2rem; border-radius: 8px;
+  background: rgba(255,255,255,0.9);
+  padding: 2rem;
+  border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 90%; max-width: 400px; text-align: center;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
 }
-
-#content { display: none; }
+#content {
+  display: none;
+  background: var(--bg-protected);
+}
 
 input[type="password"] {
-  width: 100%; padding: .5rem; margin-top: 1rem;
-  border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
-button {
-  margin-top: 1rem; padding: .5rem 1rem; font-size: 1rem;
-  border: none; border-radius: 4px; cursor: pointer;
-  background: #007BFF; color: #fff;
+button#enterBtn {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--primary-color);
+  color: #fff;
 }
-button:hover { background: #0056b3; }
+button#enterBtn:hover {
+  opacity: 0.9;
+}
 
 .error {
-  color: #d00; margin-top: .5rem; font-size: .9rem;
+  color: #d00;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
 }
