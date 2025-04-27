@@ -6,6 +6,7 @@ const contentCard = document.getElementById('content');
 const pwInput = document.getElementById('pwInput');
 const enterBtn = document.getElementById('enterBtn');
 const errorMsg = document.getElementById('errorMsg');
+const togglePassword = document.getElementById('togglePassword');
 
 function setTheme(t) {
   root.setAttribute('data-theme', t);
@@ -25,6 +26,13 @@ themeToggle.addEventListener('click', async () => {
 const saved = localStorage.getItem('theme');
 if (saved) setTheme(saved);
 else setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+togglePassword.addEventListener('click', () => {
+  const type = pwInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  pwInput.setAttribute('type', type);
+  togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+  togglePassword.setAttribute('aria-label', type === 'password' ? 'Show password' : 'Hide password');
+});
 
 async function checkPassword() {
   errorMsg.textContent = '';
@@ -46,7 +54,6 @@ async function checkPassword() {
   } catch (err) {
     errorMsg.textContent = err.message;
     loginCard.classList.remove('animate-shake');
-    // trigger reflow to restart shake
     void loginCard.offsetWidth;
     loginCard.classList.add('animate-shake');
     pwInput.value = '';
