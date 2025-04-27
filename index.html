@@ -1,14 +1,16 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Protected Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+
+  <!-- top-right decorative image -->
+  <img src="background.jpg" alt="" class="background-image"/>
 
   <header>
     <button id="themeToggle" aria-label="Toggle theme">🌙</button>
@@ -18,7 +20,7 @@
     <div id="login" class="card animate-fade-in">
       <h2>Protected Area</h2>
       <div class="password-container">
-        <input type="password" id="pwInput" placeholder="Password" autocomplete="off">
+        <input type="password" id="pwInput" placeholder="Password" autocomplete="off"/>
         <button type="button" id="togglePassword" aria-label="Show password">👁️</button>
       </div>
       <button id="enterBtn">Enter</button>
@@ -34,3 +36,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
