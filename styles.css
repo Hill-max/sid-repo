@@ -1,90 +1,147 @@
 /* styles.css */
 :root {
-  --bg-image: url('background.jpg');
-  --bg-color: #f4f4f4;
-  --text-color: #000;
-  --border-color: rgba(255, 255, 255, 0.8);
-  --primary-color: #007BFF;
-  --bg-protected: #e0ffe0;
+  --font: 'Poppins', sans-serif;
+  --bg-img: url('background.jpg');
+  --light-bg: #f0f2f5;
+  --dark-bg: #18191a;
+  --light-card: #ffffffdd;
+  --dark-card: #242526dd;
+  --light-text: #050505;
+  --dark-text: #e4e6eb;
+  --accent: #4a90e2;
+  --border-top: rgba(255,255,255,0.5);
+}
+
+[data-theme='light'] {
+  --bg-color: var(--light-bg);
+  --card-bg: var(--light-card);
+  --text-color: var(--light-text);
+  --toggle-icon: '🌙';
+  --border-color: rgba(255,255,255,0.8);
 }
 
 [data-theme='dark'] {
-  --bg-color: #121212;
-  --text-color: #fff;
-  --border-color: rgba(255, 255, 255, 0.2);
-  --primary-color: #0d6efd;
-  --bg-protected: #003300;
+  --bg-color: var(--dark-bg);
+  --card-bg: var(--dark-card);
+  --text-color: var(--dark-text);
+  --toggle-icon: '☀️';
+  --border-color: rgba(0,0,0,0.5);
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: var(--bg-color);
-  background-image: var(--bg-image);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-top: 10px solid var(--border-color);
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
   color: var(--text-color);
-  font-family: Arial, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+  background-color: var(--bg-color);
+  background-image: var(--bg-img);
+  background-size: cover;
+  background-position: center;
+  border-top: 8px solid var(--border-color);
+  transition: background-color .5s, color .5s, border-color .5s;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
-.theme-switcher {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
 }
-.theme-switcher button {
+
+#themeToggle {
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--text-color);
+  transition: transform .3s;
 }
 
-#login, #content {
-  background: rgba(255,255,255,0.9);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
+#themeToggle.rotating {
+  transform: rotate(360deg);
 }
-#content {
-  display: none;
-  background: var(--bg-protected);
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  transition: background .5s, box-shadow .3s;
+}
+
+.card:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
 }
 
 input[type="password"] {
   width: 100%;
-  padding: 0.5rem;
+  padding: .75rem;
   margin: 1rem 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid var(--accent);
+  border-radius: 8px;
   font-size: 1rem;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--text-color);
+  box-shadow: 0 0 8px var(--accent);
 }
 
 button#enterBtn {
-  padding: 0.5rem 1rem;
+  width: 100%;
+  padding: .75rem;
   font-size: 1rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background: var(--primary-color);
+  background: var(--accent);
   color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .3s, transform .1s;
 }
+
 button#enterBtn:hover {
-  opacity: 0.9;
+  background: #357ab8;
+}
+
+button#enterBtn:active {
+  transform: scale(.98);
 }
 
 .error {
-  color: #d00;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+  color: #d9534f;
+  margin-top: .5rem;
+  font-size: .9rem;
+}
+
+.hidden { display: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn .8s ease-out both;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-8px); }
+  40%,80% { transform: translateX(8px); }
+}
+
+.animate-shake {
+  animation: shake .5s ease-in-out;
 }
