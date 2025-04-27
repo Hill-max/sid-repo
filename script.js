@@ -1,3 +1,29 @@
+// theme toggling
+const themeToggle = document.getElementById('themeToggle');
+const rootEl       = document.documentElement;
+
+function setTheme(theme) {
+  rootEl.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+// initialize theme from localStorage or OS preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  setTheme(savedTheme);
+} else {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  setTheme(prefersDark ? 'dark' : 'light');
+}
+
+themeToggle.addEventListener('click', () => {
+  const next = rootEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+});
+
+// password protection logic (unchanged)
+const CORRECT_PW = null; // no client-side secret!
 const loginDiv   = document.getElementById('login');
 const contentDiv = document.getElementById('content');
 const pwInput    = document.getElementById('pwInput');
@@ -12,13 +38,13 @@ async function checkPassword() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: pwInput.value })
     });
-    const data = await res.json();
-    if (data.success) {
+    const { success, html, message } = await res.json();
+    if (success) {
       loginDiv.style.display   = 'none';
       contentDiv.style.display = 'block';
-      contentDiv.innerHTML     = data.html;
+      contentDiv.innerHTML     = html;
     } else {
-      throw new Error(data.message || 'Incorrect password');
+      throw new Error(message || 'Incorrect password');
     }
   } catch (err) {
     errorMsg.textContent = err.message;
