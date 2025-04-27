@@ -3,31 +3,31 @@
   --bg-img: url('background.jpg');
   --light-bg: #f0f2f5;
   --dark-bg: #18191a;
-  --light-card: #ffffffdd;
-  --dark-card: #242526dd;
+  --light-card-bg: #ffffffdd;
+  --dark-card-bg: #242526dd;
   --light-text: #050505;
   --dark-text: #e4e6eb;
-  --accent: #4CAF50;
-  --border-top: rgba(255,255,255,0.5);
+  --accent: #4caf50;
+  --border-thickness: 8px;
 }
 
 [data-theme='light'] {
   --bg-color: var(--light-bg);
-  --card-bg: var(--light-card);
+  --card-bg: var(--light-card-bg);
   --text-color: var(--light-text);
-  --toggle-icon: '🌙';
-  --border-color: rgba(255,255,255,0.8);
+  --toggle-icon: 🌙;
+  --border-color: rgba(255, 255, 255, 0.8);
 }
 
 [data-theme='dark'] {
   --bg-color: var(--dark-bg);
-  --card-bg: var(--dark-card);
+  --card-bg: var(--dark-card-bg);
   --text-color: var(--dark-text);
-  --toggle-icon: '☀️';
-  --border-color: rgba(0,0,0,0.5);
+  --toggle-icon: ☀️;
+  --border-color: rgba(0, 0, 0, 0.5);
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -40,8 +40,8 @@ body {
   background-image: var(--bg-img);
   background-size: cover;
   background-position: center;
-  border-top: 8px solid var(--border-color);
-  transition: background-color .5s, color .5s, border-color .5s;
+  border-top: var(--border-thickness) solid var(--border-color);
+  transition: background-color 0.5s, color 0.5s, border-color 0.5s;
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -58,7 +58,7 @@ header {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: transform .3s;
+  transition: transform 0.3s;
 }
 
 #themeToggle.rotating {
@@ -69,21 +69,22 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
 }
 
 .card {
   background: var(--card-bg);
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  width: 90%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 100%;
   max-width: 360px;
   text-align: center;
-  transition: background .5s, box-shadow .3s;
+  transition: background 0.5s, box-shadow 0.3s;
 }
 
 .card:hover {
-  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 .password-container {
@@ -93,12 +94,12 @@ main {
 
 .password-container input {
   width: 100%;
-  padding: .75rem 2.5rem .75rem .75rem;
+  padding: 0.75rem 2.5rem 0.75rem 0.75rem;
   margin: 1rem 0;
   border: 2px solid var(--accent);
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color .3s, box-shadow .3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .password-container input:focus {
@@ -110,7 +111,7 @@ main {
 #togglePassword {
   position: absolute;
   top: 50%;
-  right: .75rem;
+  right: 0.75rem;
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -121,32 +122,32 @@ main {
 
 button#enterBtn {
   width: 100%;
-  padding: .75rem;
+  padding: 0.75rem;
   font-size: 1rem;
   background: var(--accent);
   color: #fff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background .3s, transform .1s;
+  transition: background 0.3s, transform 0.1s;
 }
 
 button#enterBtn:hover {
-  background: #388E3C;
+  background: #388e3c;
 }
 
 button#enterBtn:active {
-  transform: scale(.98);
+  transform: scale(0.98);
 }
 
 .error {
   color: #d9534f;
-  margin-top: .5rem;
-  font-size: .9rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 @keyframes fadeIn {
@@ -161,7 +162,22 @@ button#enterBtn:active {
 }
 
 .animate-fade-in {
-  animation: fadeIn .8s ease-out both;
+  animation: fadeIn 0.8s ease-out both;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease-in both;
 }
 
 @keyframes shake {
@@ -177,5 +193,5 @@ button#enterBtn:active {
 }
 
 .animate-shake {
-  animation: shake .5s ease-in-out;
+  animation: shake 0.5s ease-in-out;
 }
