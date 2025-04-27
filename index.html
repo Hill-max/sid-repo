@@ -1,5 +1,6 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,16 +8,19 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
+  <div class="theme-switcher">
+    <button id="themeToggle" aria-label="Toggle theme">🌙</button>
+  </div>
   <div id="login">
     <h2>Protected Area</h2>
     <input type="password" id="pwInput" placeholder="Password" />
     <button id="enterBtn">Enter</button>
     <p id="errorMsg" class="error"></p>
   </div>
-
-  <div id="content"></div>
-
+  <div id="content">
+    <h1>Welcome!</h1>
+    <p>This is your secret content. 🎉</p>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
