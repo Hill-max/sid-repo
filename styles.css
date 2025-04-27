@@ -56,7 +56,6 @@ body {
   z-index: 1;
 }
 
-
 header {
   display: flex;
   justify-content: flex-end;
@@ -119,6 +118,7 @@ main {
   border-color: var(--accent);
   box-shadow: 0 0 8px var(--accent);
 }
+
 #togglePassword {
   position: absolute;
   top: 50%;
@@ -126,22 +126,22 @@ main {
   transform: translateY(-50%);
   background: none;
   border: none;
-  font-size: 1rem; /* Adjusted for better fit */
-  font-weight: 500; /* Slightly lighter for a sleek look */
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   color: black;
   z-index: 2;
-  padding: 0.2rem 0.6rem; /* Small padding for a neat, clickable button */
-  border-radius: 8px; /* Rounded corners for a more modern feel */
-  transition: background 0.3s ease; /* Smooth hover effect */
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
 }
 
 #togglePassword:hover {
-  background: #f0f0f0; /* Light hover effect */
+  background: #f0f0f0;
 }
 
 #togglePassword:active {
-  transform: translateY(-50%) scale(0.95); /* Slight shrinking effect when clicked */
+  transform: translateY(-50%) scale(0.95);
 }
 
 button#enterBtn {
@@ -172,6 +172,36 @@ button#enterBtn:active {
 
 .hidden {
   display: none !important;
+}
+
+#content {
+  text-align: center;
+}
+
+.plus-button {
+  margin-top: 1.5rem;
+  font-size: 2rem;
+  width: 60px;
+  height: 60px;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, transform 0.1s;
+}
+
+.plus-button:hover {
+  background-color: #388e3c;
+}
+
+.plus-button:active {
+  transform: scale(0.95);
 }
 
 @keyframes fadeIn {
