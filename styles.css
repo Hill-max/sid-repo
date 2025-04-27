@@ -1,6 +1,5 @@
 :root {
   --font: 'Poppins', sans-serif;
-  --bg-img: url('background.jpg');
   --light-bg: #f0f2f5;
   --dark-bg: #18191a;
   --light-card-bg: #ffffffdd;
@@ -37,20 +36,31 @@ body {
   font-family: var(--font);
   color: var(--text-color);
   background-color: var(--bg-color);
-  background-image: var(--bg-img);
-  background-size: cover;
-  background-position: center;
-  border-top: var(--border-thickness) solid var(--border-color);
   transition: background-color 0.5s, color 0.5s, border-color 0.5s;
   height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr;
+  position: relative;
+  overflow-x: hidden;
+  border-top: var(--border-thickness) solid var(--border-color);
+}
+
+.background-image {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 150px;
+  height: auto;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
 }
 
 header {
   display: flex;
   justify-content: flex-end;
   padding: 1rem;
+  z-index: 2;
 }
 
 #themeToggle {
@@ -70,6 +80,7 @@ main {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  z-index: 2;
 }
 
 .card {
@@ -118,6 +129,7 @@ main {
   font-size: 1.25rem;
   cursor: pointer;
   color: var(--text-color);
+  z-index: 2;
 }
 
 button#enterBtn {
@@ -151,47 +163,26 @@ button#enterBtn:active {
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out both;
 }
 
 @keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-20px); }
 }
-
 .fade-out {
   animation: fadeOut 0.5s ease-in both;
 }
 
 @keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  20%, 60% {
-    transform: translateX(-8px);
-  }
-  40%, 80% {
-    transform: translateX(8px);
-  }
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-8px); }
+  40%,80% { transform: translateX(8px); }
 }
-
 .animate-shake {
   animation: shake 0.5s ease-in-out;
 }
