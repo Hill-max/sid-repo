@@ -1,27 +1,45 @@
-// script.js
-const themeToggle = document.getElementById('themeToggle');
-const root = document.documentElement;
-const loginCard = document.getElementById('login');
-const contentCard = document.getElementById('content');
 const pwInput = document.getElementById('pwInput');
+const togglePassword = document.getElementById('togglePassword');
 const enterBtn = document.getElementById('enterBtn');
 const errorMsg = document.getElementById('errorMsg');
-const togglePassword = document.getElementById('togglePassword');
+const loginCard = document.getElementById('login');
+const contentCard = document.getElementById('content');
+const themeToggle = document.getElementById('themeToggle');
 
-function setTheme(t) {
-  root.setAttribute('data-theme', t);
-  localStorage.setItem('theme', t);
-  themeToggle.textContent = getComputedStyle(root)
-    .getPropertyValue('--toggle-icon').replace(/['"]/g,'');
-}
-
-themeToggle.addEventListener('click', async () => {
-  themeToggle.classList.add('rotating');
-  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  setTheme(next);
-  await new Promise(r => setTimeout(r, 300));
-  themeToggle.classList.remove('rotating');
+togglePassword.addEventListener('click', () => {
+  const isPassword = pwInput.getAttribute('type') === 'password';
+  pwInput.setAttribute('type', isPassword ? 'text' : 'password');
+  togglePassword.textContent = isPassword ? 'Hide' : 'Show';
 });
+
+enterBtn.addEventListener('click', async () => {
+  const password = pwInput.value.trim();
+  const response = await fetch('/.netlify/functions/protect', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password })
+  });
+
+  const result = await response.json();
+  if (result.success) {
+    loginCard.classList.add('hidden');
+    contentCard.classList.remove('hidden');
+  } else {
+    errorMsg.textContent = 'Incorrect password!';
+    pwInput.classList.add('animate-shake');
+    setTimeout(() => pwInput.classList.remove('animate-shake'), 500);
+  }
+});
+
+themeToggle.addEventListener('click', () => {
+  const html = document.documentElement;
+  const isLight = html.getAttribute('data-theme') === 'light';
+  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
+  themeToggle.textContent = isLight ? '☀️' : '🌙';
+  themeToggle.classList.add('rotating');
+  setTimeout(() => themeToggle.classList.remove('rotating'), 500);
+});
+
 
 const saved = localStorage.getItem('theme');
 if (saved) setTheme(saved);
