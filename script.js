@@ -40,6 +40,9 @@ themeToggle.addEventListener('click', () => {
   setTimeout(() => themeToggle.classList.remove('rotating'), 500);
 });
 
+addButton.addEventListener('click', () => {
+  alert('Add button clicked!');
+});
 
 const saved = localStorage.getItem('theme');
 if (saved) setTheme(saved);
