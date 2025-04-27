@@ -17,7 +17,10 @@
   <main>
     <div id="login" class="card animate-fade-in">
       <h2>Protected Area</h2>
-      <input type="password" id="pwInput" placeholder="Password" autocomplete="off">
+      <div class="password-container">
+        <input type="password" id="pwInput" placeholder="Password" autocomplete="off">
+        <button type="button" id="togglePassword" aria-label="Show password">👁️</button>
+      </div>
       <button id="enterBtn">Enter</button>
       <p id="errorMsg" class="error"></p>
     </div>
