@@ -27,13 +27,21 @@
       <p id="errorMsg" class="error"></p>
     </div>
 
-    <!-- Welcome content after login -->
-    <div id="content" class="card animate-fade-in hidden">
-      <h1>Welcome, User!</h1>
-      <p>Your secret content is now unlocked. 🎉</p>
-      <button id="addButton" class="plus-button">+</button>
-    </div>
-  </main>
+    <main>
+  <div id="login" class="card animate-fade-in">
+    …login form…
+  </div>
+
+  <div id="content" class="card animate-fade-in hidden">
+    <h1>Welcome, User!</h1>
+    <p>Your secret content is now unlocked. 🎉</p>
+    <button id="addButton" class="plus-button">+</button>
+  </div>
+
+  <!-- moved here, outside the #content card -->
+  <button id="rpOfficeBtn" class="rp-office-btn hidden">R.P Office</button>
+</main>
+
 
   <script src="script.js"></script>
 </body>
