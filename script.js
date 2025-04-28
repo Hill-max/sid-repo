@@ -1,13 +1,12 @@
-const pwInput       = document.getElementById('pwInput');
+const pwInput = document.getElementById('pwInput');
 const togglePassword = document.getElementById('togglePassword');
-const enterBtn      = document.getElementById('enterBtn');
-const errorMsg      = document.getElementById('errorMsg');
-const loginCard     = document.getElementById('login');
-const contentCard   = document.getElementById('content');
-const themeToggle   = document.getElementById('themeToggle');
-const addButton     = document.getElementById('addButton');
-// ← NEW: grab the R.P Office button
-const rpOfficeBtn   = document.getElementById('rpOfficeBtn');
+const enterBtn = document.getElementById('enterBtn');
+const errorMsg = document.getElementById('errorMsg');
+const loginCard = document.getElementById('login');
+const contentCard = document.getElementById('content');
+const themeToggle = document.getElementById('themeToggle');
+const addButton = document.getElementById('addButton');
+const rpOfficeBtn = document.getElementById('rpOfficeBtn');
 
 togglePassword.addEventListener('click', () => {
   const isPassword = pwInput.getAttribute('type') === 'password';
@@ -15,7 +14,6 @@ togglePassword.addEventListener('click', () => {
   togglePassword.textContent = isPassword ? 'Hide' : 'Show';
 });
 
-// Inline login listener (you also have checkPassword below)
 enterBtn.addEventListener('click', async () => {
   const password = pwInput.value.trim();
   const response = await fetch('/.netlify/functions/protect', {
@@ -23,12 +21,10 @@ enterBtn.addEventListener('click', async () => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password })
   });
-
   const result = await response.json();
   if (result.success) {
     loginCard.classList.add('hidden');
     contentCard.classList.remove('hidden');
-    // ← NEW: show the R.P Office button
     rpOfficeBtn.classList.remove('hidden');
   } else {
     errorMsg.textContent = 'Incorrect password!';
@@ -60,23 +56,17 @@ async function checkPassword() {
     const res = await fetch('/.netlify/functions/protect', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({password: pwInput.value})
+      body: JSON.stringify({ password: pwInput.value })
     });
-    const {success, html, message} = await res.json();
+    const { success, html, message } = await res.json();
     if (!success) throw new Error(message || 'Incorrect password');
-
-    // animate out login
     loginCard.classList.add('animate-fade-in', 'fade-out');
     await new Promise(r => setTimeout(r, 500));
-
     loginCard.classList.add('hidden');
     contentCard.classList.remove('hidden');
     contentCard.classList.add('animate-fade-in');
     contentCard.innerHTML = html;
-
-    // ← NEW: show the R.P Office button here, too
     rpOfficeBtn.classList.remove('hidden');
-
   } catch (err) {
     errorMsg.textContent = err.message;
     loginCard.classList.remove('animate-shake');
