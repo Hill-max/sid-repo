@@ -230,6 +230,32 @@ button#enterBtn:active {
   animation: shake 0.5s ease-in-out;
 }
 
+/* hide/show helper */
 .hidden {
   display: none !important;
+}
+
+.rp-office-btn {
+  display: block;
+  margin: 1.5rem auto 0;    /* pushes it 1.5rem below the card, centered */
+  width: 200px;
+  padding: 0.75rem;
+  background-color: #2196F3;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: background 0.3s, transform 0.1s;
+  z-index: 2;
+}
+
+.rp-office-btn:hover {
+  background-color: #1976D2;
+}
+
+.rp-office-btn:active {
+  transform: scale(0.98);
 }
