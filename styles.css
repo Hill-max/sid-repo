@@ -230,17 +230,21 @@ button#enterBtn:active {
   animation: shake 0.5s ease-in-out;
 }
 
-/* hide/show helper */
-.hidden {
-  display: none !important;
+/* remove border & shadow from the login card */
+#login.card {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0; /* optional, if you want no padding at all */
 }
 
+/* R.P Office button: green with fade-in & hover animations */
 .rp-office-btn {
   display: block;
-  margin: 1.5rem auto 0;    /* pushes it 1.5rem below the card, centered */
+  margin: 1.5rem auto 0;
   width: 200px;
   padding: 0.75rem;
-  background-color: #2196F3;
+  background-color: var(--accent); /* green accent */
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
@@ -248,14 +252,20 @@ button#enterBtn:active {
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: background 0.3s, transform 0.1s;
-  z-index: 2;
+  transition: background 0.3s, transform 0.2s;
+  animation: fadeIn 0.6s ease-out both;
 }
 
 .rp-office-btn:hover {
-  background-color: #1976D2;
+  background-color: #388e3c; /* slightly darker green */
+  transform: scale(1.05);
 }
 
 .rp-office-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
+}
+
+/* m */
+.hidden {
+  display: none !important;
 }
