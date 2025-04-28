@@ -228,3 +228,33 @@ button#enterBtn:active {
 .animate-shake {
   animation: shake 0.5s ease-in-out;
 }
+
+.hidden {
+  display: none !important;
+}
+
+/* Styling the "R.P Office" button */
+.rp-office-btn {
+  position: fixed;
+  top: 2rem; /* Position it at the top */
+  left: 2rem; /* Position it at the left */
+  width: 200px;
+  padding: 1rem;
+  background-color: #2196F3;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s, transform 0.1s;
+}
+
+.rp-office-btn:hover {
+  background-color: #1976D2;
+}
+
+.rp-office-btn:active {
+  transform: scale(0.98);
+}
