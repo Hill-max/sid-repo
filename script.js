@@ -1,43 +1,51 @@
-const pwInput = document.getElementById('pwInput');
-const togglePassword = document.getElementById('togglePassword');
-const enterBtn = document.getElementById('enterBtn');
-const errorMsg = document.getElementById('errorMsg');
-const loginCard = document.getElementById('login');
-const contentCard = document.getElementById('content');
-const themeToggle = document.getElementById('themeToggle');
+document.addEventListener("DOMContentLoaded", () => {
+  const password = "Hilltop2030";
+  const enterBtn = document.getElementById("enterBtn");
+  const pwInput = document.getElementById("pwInput");
+  const errorMsg = document.getElementById("errorMsg");
+  const loginCard = document.getElementById("login");
+  const contentCard = document.getElementById("content");
+  const rpOfficeBtn = document.getElementById("rpOfficeBtn");
 
-togglePassword.addEventListener('click', () => {
-  const isPassword = pwInput.getAttribute('type') === 'password';
-  pwInput.setAttribute('type', isPassword ? 'text' : 'password');
-  togglePassword.textContent = isPassword ? 'Hide' : 'Show';
-});
-
-enterBtn.addEventListener('click', async () => {
-  const password = pwInput.value.trim();
-  const response = await fetch('/.netlify/functions/protect', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password })
+  // Event listener for "Enter" button
+  enterBtn.addEventListener("click", () => {
+    if (pwInput.value === password) {
+      // Hide login card and show content card
+      loginCard.classList.add("fade-out");
+      setTimeout(() => {
+        loginCard.classList.add("hidden");
+        contentCard.classList.remove("hidden");
+        rpOfficeBtn.classList.remove("hidden"); // Show the R.P Office button
+      }, 500);
+    } else {
+      errorMsg.textContent = "Incorrect password! Please try again.";
+      errorMsg.classList.add("animate-shake");
+    }
   });
 
-  const result = await response.json();
-  if (result.success) {
-    loginCard.classList.add('hidden');
-    contentCard.classList.remove('hidden');
-  } else {
-    errorMsg.textContent = 'Incorrect password!';
-    pwInput.classList.add('animate-shake');
-    setTimeout(() => pwInput.classList.remove('animate-shake'), 500);
-  }
-});
+  // Show/hide password functionality
+  const togglePassword = document.getElementById("togglePassword");
+  togglePassword.addEventListener("click", () => {
+    if (pwInput.type === "password") {
+      pwInput.type = "text";
+      togglePassword.textContent = "Hide";
+    } else {
+      pwInput.type = "password";
+      togglePassword.textContent = "Show";
+    }
+  });
 
-themeToggle.addEventListener('click', () => {
-  const html = document.documentElement;
-  const isLight = html.getAttribute('data-theme') === 'light';
-  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
-  themeToggle.textContent = isLight ? '☀️' : '🌙';
-  themeToggle.classList.add('rotating');
-  setTimeout(() => themeToggle.classList.remove('rotating'), 500);
+  // Theme toggle functionality
+  const themeToggle = document.getElementById("themeToggle");
+  themeToggle.addEventListener("click", () => {
+    document.documentElement.setAttribute(
+      "data-theme",
+      document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light"
+    );
+    themeToggle.textContent =
+      themeToggle.textContent === "🌙" ? "☀️" : "🌙";
+    themeToggle.classList.toggle("rotating");
+  });
 });
 
 addButton.addEventListener('click', () => {
