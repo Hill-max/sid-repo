@@ -43,6 +43,7 @@ body {
   position: relative;
   overflow-x: hidden;
   border-top: var(--border-thickness) solid var(--border-color);
+  user-select: none;
 }
 
 .background-image {
