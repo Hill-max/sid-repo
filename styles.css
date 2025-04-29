@@ -230,14 +230,6 @@ button#enterBtn:active {
   animation: shake 0.5s ease-in-out;
 }
 
-/* remove border & shadow from the login card */
-#login.card {
-  background: transparent;
-  box-shadow: none;
-  border: none;
-  padding: 0; /* optional, if you want no padding at all */
-}
-
 /* R.P Office button: green with fade-in & hover animations */
 .rp-office-btn {
   display: block;
