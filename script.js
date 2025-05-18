@@ -8,47 +8,31 @@ const themeToggle = document.getElementById('themeToggle');
 const addButton = document.getElementById('addButton');
 const rpOfficeBtn = document.getElementById('rpOfficeBtn');
 
+// Theme persistence
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+  themeToggle.setAttribute('aria-pressed', theme === 'dark');
+}
+
+// Initialize theme
+const saved = localStorage.getItem('theme');
+setTheme(saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+
 togglePassword.addEventListener('click', () => {
   const isPassword = pwInput.getAttribute('type') === 'password';
   pwInput.setAttribute('type', isPassword ? 'text' : 'password');
   togglePassword.textContent = isPassword ? 'Hide' : 'Show';
-});
-
-enterBtn.addEventListener('click', async () => {
-  const password = pwInput.value.trim();
-  const response = await fetch('/.netlify/functions/protect', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password })
-  });
-  const result = await response.json();
-  if (result.success) {
-    loginCard.classList.add('hidden');
-    contentCard.classList.remove('hidden');
-    rpOfficeBtn.classList.remove('hidden');
-  } else {
-    errorMsg.textContent = 'Incorrect password!';
-    pwInput.classList.add('animate-shake');
-    setTimeout(() => pwInput.classList.remove('animate-shake'), 500);
-  }
+  togglePassword.setAttribute('aria-pressed', isPassword);
 });
 
 themeToggle.addEventListener('click', () => {
-  const html = document.documentElement;
-  const isLight = html.getAttribute('data-theme') === 'light';
-  html.setAttribute('data-theme', isLight ? 'dark' : 'light');
-  themeToggle.textContent = isLight ? '☀️' : '🌙';
+  const current = document.documentElement.getAttribute('data-theme');
+  setTheme(current === 'light' ? 'dark' : 'light');
   themeToggle.classList.add('rotating');
   setTimeout(() => themeToggle.classList.remove('rotating'), 500);
 });
-
-addButton.addEventListener('click', () => {
-  alert('Add button clicked!');
-});
-
-const saved = localStorage.getItem('theme');
-if (saved) setTheme(saved);
-else setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 
 async function checkPassword() {
   errorMsg.textContent = '';
@@ -56,17 +40,22 @@ async function checkPassword() {
     const res = await fetch('/.netlify/functions/protect', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ password: pwInput.value })
+      body: JSON.stringify({ password: pwInput.value.trim() })
     });
     const { success, html, message } = await res.json();
+
     if (!success) throw new Error(message || 'Incorrect password');
-    loginCard.classList.add('animate-fade-in', 'fade-out');
-    await new Promise(r => setTimeout(r, 500));
+
+    // Hide login, show content
     loginCard.classList.add('hidden');
     contentCard.classList.remove('hidden');
-    contentCard.classList.add('animate-fade-in');
-    contentCard.innerHTML = html;
     rpOfficeBtn.classList.remove('hidden');
+
+    // Insert protected HTML if provided
+    if (html) contentCard.innerHTML = html;
+
+    // Accessibility: focus content
+    contentCard.focus();
   } catch (err) {
     errorMsg.textContent = err.message;
     loginCard.classList.remove('animate-shake');
@@ -79,3 +68,11 @@ async function checkPassword() {
 
 enterBtn.addEventListener('click', checkPassword);
 pwInput.addEventListener('keyup', e => e.key === 'Enter' && checkPassword());
+
+addButton.addEventListener('click', () => {
+  alert('Add button clicked!');
+});
+
+rpOfficeBtn.addEventListener('click', () => {
+  // Your R.P Office logic here
+});
