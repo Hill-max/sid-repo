@@ -34,7 +34,25 @@
       <div id="content" class="card animate-fade-in hidden" tabindex="-1">
         <h1>Welcome, User!</h1>
         <p>Your secret content is now unlocked. 🎉</p>
-        <button id="addButton" class="plus-button">+</button>
+        <button id="addButton" class="plus-button" aria-label="Add Person">+</button>
+
+        <!-- Dynamic Add Form -->
+        <form id="addForm" class="card form-container hidden">
+          <h2>Add Person</h2>
+          <label for="personName">Name:</label>
+          <input type="text" id="personName" name="personName" placeholder="Enter name" required />
+
+          <label for="modeSelect">Mode:</label>
+          <select id="modeSelect" name="mode" required>
+            <option value="Evangelism">Evangelism</option>
+            <option value="Records Only">Records Only</option>
+          </select>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-button">Submit</button>
+            <button type="button" id="cancelAdd" class="cancel-button">Cancel</button>
+          </div>
+        </form>
       </div>
 
       <button id="rpOfficeBtn" class="rp-office-btn hidden">R.P Office</button>
