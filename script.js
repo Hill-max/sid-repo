@@ -7,6 +7,10 @@ const loginCard = document.getElementById('login');
 const contentCard = document.getElementById('content');
 const themeToggle = document.getElementById('themeToggle');
 const addButton = document.getElementById('addButton');
+const addForm = document.getElementById('addForm');
+const cancelAdd = document.getElementById('cancelAdd');
+const personName = document.getElementById('personName');
+const modeSelect = document.getElementById('modeSelect');
 const rpOfficeBtn = document.getElementById('rpOfficeBtn');
 
 // Theme persistence
@@ -47,16 +51,11 @@ async function checkPassword() {
 
     if (!success) throw new Error(message || 'Incorrect password');
 
-    // Hide login, show content and back button
     loginCard.classList.add('hidden');
     contentCard.classList.remove('hidden');
     rpOfficeBtn.classList.remove('hidden');
     backBtn.classList.remove('hidden');
-
-    // Insert protected HTML if provided
     if (html) contentCard.innerHTML = html;
-
-    // Accessibility: focus content
     contentCard.focus();
   } catch (err) {
     errorMsg.textContent = err.message;
@@ -72,19 +71,37 @@ enterBtn.addEventListener('click', checkPassword);
 pwInput.addEventListener('keyup', e => e.key === 'Enter' && checkPassword());
 
 backBtn.addEventListener('click', () => {
-  // Show login, hide content and buttons
   loginCard.classList.remove('hidden');
   contentCard.classList.add('hidden');
   rpOfficeBtn.classList.add('hidden');
   backBtn.classList.add('hidden');
-
-  // Reset input and focus
+  addForm.classList.add('hidden');
+  addButton.classList.remove('hidden');
   pwInput.value = '';
   pwInput.focus();
 });
 
 addButton.addEventListener('click', () => {
-  alert('Add button clicked!');
+  addForm.classList.remove('hidden');
+  addButton.classList.add('hidden');
+  personName.focus();
+});
+
+cancelAdd.addEventListener('click', () => {
+  addForm.reset();
+  addForm.classList.add('hidden');
+  addButton.classList.remove('hidden');
+});
+
+addForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const name = personName.value.trim();
+  const mode = modeSelect.value;
+  // Handle form data (e.g., send to server or update UI)
+  console.log('New person:', { name, mode });
+  addForm.reset();
+  addForm.classList.add('hidden');
+  addButton.classList.remove('hidden');
 });
 
 rpOfficeBtn.addEventListener('click', () => {
