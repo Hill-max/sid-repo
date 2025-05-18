@@ -91,11 +91,3 @@ rpOfficeBtn.addEventListener('click', () => {
   // Your R.P Office logic here
 });
 ```
-
-### styles.css (add button styling)
-```css
-.back-button {
-  /* reuse rp-office-btn styles with slight variation */
-  background-color: #f44336; /* red for back */
-  margin: 1rem auto 0;
-}
