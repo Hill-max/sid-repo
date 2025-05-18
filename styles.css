@@ -228,3 +228,56 @@ button#enterBtn,
     left: 0.5rem;
   }
 }
+
+/* Fade‑in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out both;
+}
+
+/* Fade‑out */
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-20px); }
+}
+.fade-out {
+  animation: fadeOut 0.5s ease-in both;
+}
+
+/* Shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.animate-shake {
+  animation: shake 0.5s ease-in-out both;
+}
+
+/* Theme‑toggle spin */
+#themeToggle.rotating {
+  transform: rotate(360deg);
+}
+
+/* Card hover lift */
+.card {
+  transition: background 0.5s, box-shadow 0.3s;
+}
+.card:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+/* Button press feedback */
+button#enterBtn:active,
+.plus-button:active,
+.rp-office-btn:active {
+  transform: scale(0.95);
+}
+
+/* Plus‑button hover */
+.plus-button:hover {
+  background-color: #388e3c;
+}
