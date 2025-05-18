@@ -1,6 +1,7 @@
 const pwInput = document.getElementById('pwInput');
 const togglePassword = document.getElementById('togglePassword');
 const enterBtn = document.getElementById('enterBtn');
+const backBtn = document.getElementById('backBtn');
 const errorMsg = document.getElementById('errorMsg');
 const loginCard = document.getElementById('login');
 const contentCard = document.getElementById('content');
@@ -46,10 +47,11 @@ async function checkPassword() {
 
     if (!success) throw new Error(message || 'Incorrect password');
 
-    // Hide login, show content
+    // Hide login, show content and back button
     loginCard.classList.add('hidden');
     contentCard.classList.remove('hidden');
     rpOfficeBtn.classList.remove('hidden');
+    backBtn.classList.remove('hidden');
 
     // Insert protected HTML if provided
     if (html) contentCard.innerHTML = html;
@@ -69,6 +71,18 @@ async function checkPassword() {
 enterBtn.addEventListener('click', checkPassword);
 pwInput.addEventListener('keyup', e => e.key === 'Enter' && checkPassword());
 
+backBtn.addEventListener('click', () => {
+  // Show login, hide content and buttons
+  loginCard.classList.remove('hidden');
+  contentCard.classList.add('hidden');
+  rpOfficeBtn.classList.add('hidden');
+  backBtn.classList.add('hidden');
+
+  // Reset input and focus
+  pwInput.value = '';
+  pwInput.focus();
+});
+
 addButton.addEventListener('click', () => {
   alert('Add button clicked!');
 });
@@ -76,3 +90,12 @@ addButton.addEventListener('click', () => {
 rpOfficeBtn.addEventListener('click', () => {
   // Your R.P Office logic here
 });
+```
+
+### styles.css (add button styling)
+```css
+.back-button {
+  /* reuse rp-office-btn styles with slight variation */
+  background-color: #f44336; /* red for back */
+  margin: 1rem auto 0;
+}
