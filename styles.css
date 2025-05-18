@@ -14,14 +14,11 @@
   --bg-color: var(--light-bg);
   --card-bg: var(--light-card-bg);
   --text-color: var(--light-text);
-  --border-color: rgba(255,255,255,0.8);
 }
-
 [data-theme='dark'] {
   --bg-color: var(--dark-bg);
   --card-bg: var(--dark-card-bg);
   --text-color: var(--dark-text);
-  --border-color: rgba(0,0,0,0.5);
 }
 
 *, *::before, *::after {
@@ -50,6 +47,10 @@ header {
   background: none;
   border: none;
   cursor: pointer;
+  transition: transform 0.5s;
+}
+#themeToggle.rotating {
+  transform: rotate(360deg);
 }
 
 main {
@@ -63,6 +64,7 @@ main {
   gap: 1.5rem;
 }
 
+/* CARD BASE */
 .card {
   background: var(--card-bg);
   padding: 2rem;
@@ -71,20 +73,23 @@ main {
   width: 100%;
   max-width: 360px;
   text-align: center;
+  transition: background 0.5s, box-shadow 0.3s;
+}
+.card:hover {
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
 }
 
+/* PASSWORD FIELD */
 .password-container {
   position: relative;
   width: 100%;
 }
-
 .password-container input {
   width: 100%;
   padding: 0.75rem 2.5rem 0.75rem 0.75rem;
   border: 2px solid var(--accent);
   border-radius: 8px;
 }
-
 #togglePassword {
   position: absolute;
   top: 50%;
@@ -95,33 +100,34 @@ main {
   cursor: pointer;
 }
 
+/* BUTTONS */
 button#enterBtn,
 .plus-button,
-.rp-office-btn,
-.back-arrow {
+.rp-office-btn {
   width: 100%;
   max-width: 360px;
+  padding: 0.75rem;
   margin: 0.5rem auto;
-}
-
-button#enterBtn,
-.plus-button {
-  padding: 0.75rem;
+  font-size: 1rem;
   background: var(--accent);
   color: #fff;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.3s;
+}
+button#enterBtn:hover,
+.plus-button:hover,
+.rp-office-btn:hover {
+  background: #388e3c;
+}
+button#enterBtn:active,
+.plus-button:active,
+.rp-office-btn:active {
+  transform: scale(0.95);
 }
 
-.rp-office-btn {
-  padding: 0.75rem;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-}
-
-/* Back arrow button */
+/* BACK ARROW */
 .back-arrow {
   position: absolute;
   top: 2rem;
@@ -133,14 +139,10 @@ button#enterBtn,
   z-index: 2;
   transition: transform 0.2s;
 }
-.back-arrow:hover {
-  transform: scale(1.1);
-}
-.back-arrow:active {
-  transform: scale(0.9);
-}
+.back-arrow:hover { transform: scale(1.1); }
+.back-arrow:active { transform: scale(0.9); }
 
-/* Add Person form */
+/* ADD PERSON FORM */
 .form-container {
   display: flex;
   flex-direction: column;
@@ -153,13 +155,10 @@ button#enterBtn,
   max-width: 360px;
   margin: 1rem auto;
 }
-.form-container h2 {
-  margin-bottom: 0.5rem;
-}
+.form-container h2 { margin-bottom: 0.5rem; }
 .form-container label {
   align-self: flex-start;
   font-size: 0.9rem;
-  margin-bottom: 0.25rem;
   color: var(--text-color);
 }
 .form-container input,
@@ -169,12 +168,10 @@ button#enterBtn,
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
-  font-family: var(--font);
 }
 .form-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 1rem;
 }
 .submit-button,
 .cancel-button {
@@ -194,20 +191,48 @@ button#enterBtn,
   color: #fff;
 }
 
+/* ERROR TEXT */
 .error {
   color: #d9534f;
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
 
+/* HIDE UTILITY */
 .hidden {
   display: none !important;
 }
 
+/* ANIMATIONS */
+/* Fade‑in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out both;
+}
+/* Fade‑out */
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-20px); }
+}
+.fade-out {
+  animation: fadeOut 0.5s ease-in both;
+}
+/* Shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.animate-shake {
+  animation: shake 0.5s ease-in-out both;
+}
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
-  main {
-    padding: 0.5rem;
-  }
+  main { padding: 0.5rem; }
   .card,
   button#enterBtn,
   .plus-button,
@@ -221,63 +246,9 @@ button#enterBtn,
     font-size: 1.25rem;
   }
 }
-
 @media (max-height: 500px) {
   .back-arrow {
     top: 0.5rem;
     left: 0.5rem;
   }
-}
-
-/* Fade‑in */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out both;
-}
-
-/* Fade‑out */
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to   { opacity: 0; transform: translateY(-20px); }
-}
-.fade-out {
-  animation: fadeOut 0.5s ease-in both;
-}
-
-/* Shake */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-8px); }
-  40%, 80% { transform: translateX(8px); }
-}
-.animate-shake {
-  animation: shake 0.5s ease-in-out both;
-}
-
-/* Theme‑toggle spin */
-#themeToggle.rotating {
-  transform: rotate(360deg);
-}
-
-/* Card hover lift */
-.card {
-  transition: background 0.5s, box-shadow 0.3s;
-}
-.card:hover {
-  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-}
-
-/* Button press feedback */
-button#enterBtn:active,
-.plus-button:active,
-.rp-office-btn:active {
-  transform: scale(0.95);
-}
-
-/* Plus‑button hover */
-.plus-button:hover {
-  background-color: #388e3c;
 }
