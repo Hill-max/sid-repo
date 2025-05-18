@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- top-left decorative image -->
+  <!-- Decorative image -->
   <img src="background.jpg" alt="" class="background-image"/>
 
   <header>
@@ -17,6 +17,7 @@
   </header>
 
   <main>
+    <!-- LOGIN CARD -->
     <div id="login" class="card animate-fade-in">
       <h2>Protected Area</h2>
       <div class="password-container">
@@ -28,19 +29,25 @@
     </div>
 
     <section>
-      <!-- Back arrow button -->
+      <!-- BACK ARROW -->
       <button id="backBtn" class="back-arrow hidden" aria-label="Go back">←</button>
 
+      <!-- CONTENT CARD -->
       <div id="content" class="card animate-fade-in hidden" tabindex="-1">
-        <h1>Welcome, User!</h1>
-        <p>Your secret content is now unlocked. 🎉</p>
+        <!-- protectedSlot: server HTML will be injected here -->
+        <div id="protectedSlot">
+          <h1>Welcome, User!</h1>
+          <p>Your secret content is now unlocked. 🎉</p>
+        </div>
+
+        <!-- ADD PERSON BUTTON -->
         <button id="addButton" class="plus-button" aria-label="Add Person">+</button>
 
-        <!-- Dynamic Add Form -->
-        <form id="addForm" class="card form-container hidden">
+        <!-- ADD PERSON FORM -->
+        <form id="addForm" class="form-container hidden">
           <h2>Add Person</h2>
           <label for="personName">Name:</label>
-          <input type="text" id="personName" name="personName" placeholder="Enter name" required />
+          <input type="text" id="personName" name="personName" placeholder="Enter name" required/>
 
           <label for="modeSelect">Mode:</label>
           <select id="modeSelect" name="mode" required>
@@ -55,6 +62,7 @@
         </form>
       </div>
 
+      <!-- R.P OFFICE BUTTON -->
       <button id="rpOfficeBtn" class="rp-office-btn hidden">R.P Office</button>
     </section>
   </main>
