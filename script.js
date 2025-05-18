@@ -108,6 +108,13 @@ addForm.addEventListener('submit', e => {
   addForm.reset();
   addForm.classList.add('hidden');
   addButton.classList.remove('hidden');
+  if (mode === 'Evangelism') {
+    // encode name in query string and redirect
+    window.location.href = `evangelism.html?name=${encodeURIComponent(name)}`;
+  } else {
+    // for Records Only, we could similarly redirect to a records page
+    alert('Records Only mode not yet implemented.');
+  }
 });
 
 // R.P Office button logic placeholder
