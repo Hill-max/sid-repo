@@ -8,17 +8,23 @@
   --dark-text: #e4e6eb;
   --accent: #4caf50;
   --border-thickness: 8px;
+  --back-arrow-color: #050505;
+  --back-arrow-hover: #333;
 }
 
 [data-theme='light'] {
   --bg-color: var(--light-bg);
   --card-bg: var(--light-card-bg);
   --text-color: var(--light-text);
+  --back-arrow-color: #050505;
+  --back-arrow-hover: #333;
 }
 [data-theme='dark'] {
   --bg-color: var(--dark-bg);
   --card-bg: var(--dark-card-bg);
   --text-color: var(--dark-text);
+   --back-arrow-color: #e4e6eb;
+  --back-arrow-hover: #ccc;
 }
 
 *, *::before, *::after {
@@ -244,7 +250,11 @@ button#enterBtn:active,
     top: 1rem;
     left: 1rem;
     font-size: 1.25rem;
+    color: var(--back-arrow-color);
   }
+  .back-arrow:hover {
+  color: var(--back-arrow-hover);
+}
 }
 @media (max-height: 500px) {
   .back-arrow {
