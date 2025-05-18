@@ -13,7 +13,7 @@
   <img src="background.jpg" alt="" class="background-image"/>
 
   <header>
-    <button id="themeToggle" aria-label="Toggle theme">🌙</button>
+    <button id="themeToggle" aria-label="Toggle theme" aria-pressed="false">🌙</button>
   </header>
 
   <main>
@@ -21,23 +21,23 @@
       <h2>Protected Area</h2>
       <div class="password-container">
         <input type="password" id="pwInput" placeholder="Password" autocomplete="off"/>
-        <button type="button" id="togglePassword" aria-label="Show password">Show</button>
+        <button type="button" id="togglePassword" aria-label="Show password" aria-pressed="false">Show</button>
       </div>
       <button id="enterBtn">Enter</button>
-      <p id="errorMsg" class="error"></p>
+      <p id="errorMsg" class="error" aria-live="assertive"></p>
     </div>
 
-    <main>
-  <div id="content" class="card animate-fade-in hidden">
-    <h1>Welcome, User!</h1>
-    <p>Your secret content is now unlocked. 🎉</p>
-    <button id="addButton" class="plus-button">+</button>
-  </div>
+    <section>
+      <div id="content" class="card animate-fade-in hidden" tabindex="-1">
+        <h1>Welcome, User!</h1>
+        <p>Your secret content is now unlocked. 🎉</p>
+        <button id="addButton" class="plus-button">+</button>
+      </div>
 
-  <!-- moved here, outside the #content card -->
-  <button id="rpOfficeBtn" class="rp-office-btn hidden">R.P Office</button>
-</main>
-
+      <!-- moved here, outside the #content card -->
+      <button id="rpOfficeBtn" class="rp-office-btn hidden">R.P Office</button>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
