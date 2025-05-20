@@ -29,21 +29,20 @@
     </div>
 
     <section>
-      <!-- BACK ARROW -->
+      <!-- Back arrow -->
       <button id="backBtn" class="back-arrow hidden" aria-label="Go back">←</button>
 
       <!-- CONTENT CARD -->
       <div id="content" class="card animate-fade-in hidden" tabindex="-1">
-        <!-- protectedSlot: server HTML will be injected here -->
         <div id="protectedSlot">
           <h1>Welcome, User!</h1>
           <p>Your secret content is now unlocked. 🎉</p>
         </div>
 
-        <!-- ADD PERSON BUTTON -->
+        <!-- ADD button -->
         <button id="addButton" class="plus-button" aria-label="Add Person">+</button>
 
-        <!-- ADD PERSON FORM -->
+        <!-- ADD form -->
         <form id="addForm" class="form-container hidden">
           <h2>Add Person</h2>
           <label for="personName">Name:</label>
@@ -56,13 +55,16 @@
           </select>
 
           <div class="form-actions">
-          <button type="submit" class="submit-button">Submit & Go →</button>
+            <button type="submit" class="submit-button">Submit</button>
             <button type="button" id="cancelAdd" class="cancel-button">Cancel</button>
           </div>
         </form>
+
+        <!-- Where room‑cells appear -->
+        <div id="roomsContainer" class="rooms-container"></div>
       </div>
 
-      <!-- R.P OFFICE BUTTON -->
+      <!-- R.P Office button (unchanged) -->
       <button id="rpOfficeBtn" class="rp-office-btn hidden">R.P Office</button>
     </section>
   </main>
