@@ -20,30 +20,21 @@
   </main>
 
   <script>
-    // theme toggle reused if desired (or omit)
-    // back button simply goes back:
     document.getElementById('backBtn').addEventListener('click', () => history.back());
 
     const addRoomBtn = document.getElementById('addRoomBtn');
     const roomsContainer = document.getElementById('roomsContainer');
+    const creatorName = new URLSearchParams(location.search).get('name') || 'Unknown';
 
-    // grab the creator's name from query param
-    const params = new URLSearchParams(location.search);
-    const creatorName = params.get('name') || 'Unknown';
-
-    // On click, add a new “cell” with border, name, and tag
     addRoomBtn.addEventListener('click', () => {
       const cell = document.createElement('div');
       cell.className = 'room-cell';
       cell.tabIndex = 0;
-      // border and padding from CSS
       cell.innerHTML = `
         <div class="room-content">${creatorName}</div>
         <div class="room-tag">Evangelism</div>
       `;
       roomsContainer.appendChild(cell);
-
-      // Scroll into view and focus for accessibility
       cell.scrollIntoView({ behavior: 'smooth' });
       cell.focus();
     });
