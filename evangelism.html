@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Evangelism Room</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+  <header>
+    <button id="backBtn" class="back-arrow" aria-label="Go back">←</button>
+    <h1>You can record your invited guests here.</h1>
+  </header>
+
+  <main>
+    <button id="addRoomBtn" class="plus-button" aria-label="Add Guest">+</button>
+    <div id="roomsContainer" class="rooms-container"></div>
+  </main>
+
+  <script>
+    // theme toggle reused if desired (or omit)
+    // back button simply goes back:
+    document.getElementById('backBtn').addEventListener('click', () => history.back());
+
+    const addRoomBtn = document.getElementById('addRoomBtn');
+    const roomsContainer = document.getElementById('roomsContainer');
+
+    // grab the creator's name from query param
+    const params = new URLSearchParams(location.search);
+    const creatorName = params.get('name') || 'Unknown';
+
+    // On click, add a new “cell” with border, name, and tag
+    addRoomBtn.addEventListener('click', () => {
+      const cell = document.createElement('div');
+      cell.className = 'room-cell';
+      cell.tabIndex = 0;
+      // border and padding from CSS
+      cell.innerHTML = `
+        <div class="room-content">${creatorName}</div>
+        <div class="room-tag">Evangelism</div>
+      `;
+      roomsContainer.appendChild(cell);
+
+      // Scroll into view and focus for accessibility
+      cell.scrollIntoView({ behavior: 'smooth' });
+      cell.focus();
+    });
+  </script>
+</body>
+</html>
