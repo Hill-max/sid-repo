@@ -13,6 +13,7 @@ const cancelAdd     = document.getElementById('cancelAdd');
 const personName    = document.getElementById('personName');
 const modeSelect    = document.getElementById('modeSelect');
 const rpOfficeBtn   = document.getElementById('rpOfficeBtn');
+const roomsContainer= document.getElementById('roomsContainer');
 
 // Persist theme
 function setTheme(theme) {
@@ -24,7 +25,7 @@ function setTheme(theme) {
 const saved = localStorage.getItem('theme');
 setTheme(saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
-// Toggle password visibility
+// Toggle password
 togglePassword.addEventListener('click', () => {
   const isPwd = pwInput.type === 'password';
   pwInput.type = isPwd ? 'text' : 'password';
@@ -32,14 +33,14 @@ togglePassword.addEventListener('click', () => {
   togglePassword.setAttribute('aria-pressed', isPwd);
 });
 
-// Toggle theme with spin
+// Theme toggle spin
 themeToggle.addEventListener('click', () => {
   themeToggle.classList.add('rotating');
   setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
   setTimeout(() => themeToggle.classList.remove('rotating'), 500);
 });
 
-// Check password & inject only into protectedSlot
+// Password check
 async function checkPassword() {
   errorMsg.textContent = '';
   try {
@@ -51,13 +52,11 @@ async function checkPassword() {
     const { success, html, message } = await res.json();
     if (!success) throw new Error(message || 'Incorrect password.');
 
-    // show content & controls
     loginCard.classList.add('hidden');
     contentCard.classList.remove('hidden');
     backBtn.classList.remove('hidden');
     rpOfficeBtn.classList.remove('hidden');
 
-    // inject protected HTML
     if (html) protectedSlot.innerHTML = html;
     contentCard.focus();
   } catch (err) {
@@ -72,7 +71,7 @@ async function checkPassword() {
 enterBtn.addEventListener('click', checkPassword);
 pwInput.addEventListener('keyup', e => e.key === 'Enter' && checkPassword());
 
-// Back button resets view
+// Back resets to login
 backBtn.addEventListener('click', () => {
   loginCard.classList.remove('hidden');
   contentCard.classList.add('hidden');
@@ -84,40 +83,55 @@ backBtn.addEventListener('click', () => {
   pwInput.focus();
 });
 
-// Show Add form
+// Show add form
 addButton.addEventListener('click', () => {
   addForm.classList.remove('hidden');
   addButton.classList.add('hidden');
   personName.focus();
 });
 
-// Cancel Add
+// Cancel add
 cancelAdd.addEventListener('click', () => {
   addForm.reset();
   addForm.classList.add('hidden');
   addButton.classList.remove('hidden');
 });
 
-// Handle Add form submit
+// Handle add form: create clickable room‑cell
 addForm.addEventListener('submit', e => {
   e.preventDefault();
   const name = personName.value.trim();
   const mode = modeSelect.value;
-  console.log('New person:', { name, mode });
-  // TODO: send to server or update UI...
+
+  // Create the cell
+  const cell = document.createElement('div');
+  cell.className = 'room-cell';
+  cell.tabIndex = 0;             // make focusable
+  cell.innerHTML = `
+    <div class="room-content">${name}</div>
+    <div class="room-tag">${mode}</div>
+  `;
+  // on click or enter: redirect to evangelism page
+  cell.addEventListener('click', () => {
+    if (mode === 'Evangelism') {
+      window.location.href = `evangelism.html?name=${encodeURIComponent(name)}`;
+    } else {
+      alert('Records-only rooms not yet implemented.');
+    }
+  });
+  cell.addEventListener('keyup', e => {
+    if (e.key === 'Enter') cell.click();
+  });
+
+  roomsContainer.appendChild(cell);
+
+  // reset form
   addForm.reset();
   addForm.classList.add('hidden');
   addButton.classList.remove('hidden');
-  if (mode === 'Evangelism') {
-    // encode name in query string and redirect
-    window.location.href = `evangelism.html?name=${encodeURIComponent(name)}`;
-  } else {
-    // for Records Only, we could similarly redirect to a records page
-    alert('Records Only mode not yet implemented.');
-  }
 });
 
-// R.P Office button logic placeholder
+// R.P Office placeholder
 rpOfficeBtn.addEventListener('click', () => {
-  // Your R.P Office action here
+  // ...
 });
